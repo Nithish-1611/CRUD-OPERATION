@@ -1,0 +1,9 @@
+@app.route('/delete/<int:id>', methods=['DELETE'])
+def delete_registration(id):
+    registration = Registration.query.get(id)
+    if registration:
+        db.session.delete(registration)
+        db.session.commit()
+        return jsonify({"message": "Registration deleted successfully"}), 200
+    else:
+        return jsonify({"message": "Registration not found"}), 404
