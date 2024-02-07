@@ -1,0 +1,15 @@
+@app.route('/read/<int:id>', methods=['GET'])
+def get_registration(id):
+    registration = Registration.query.get(id)
+    if registration:
+        return jsonify({
+            'ID': registration.ID,
+            'Name': registration.Name,
+            'Email': registration.Email,
+            'DateOfBirth': str(registration.DateOfBirth),
+            'PhoneNumber': registration.PhoneNumber,
+            'Address': registration.Address,
+            'RegistrationDate': str(registration.RegistrationDate)
+        })
+    else:
+        return jsonify({"message": "Registration not found"}), 404
