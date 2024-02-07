@@ -1,0 +1,11 @@
+@app.route('/update/<int:id>', methods=['PUT'])
+def update_registration(id):
+    registration = Registration.query.get(id)
+    if registration:
+        data = request.get_json()
+        for key, value in data.items():
+            setattr(registration, key, value)
+        db.session.commit()
+        return jsonify({"message": "Registration updated successfully"}), 200
+    else:
+        return jsonify({"message": "Registration not found"}), 404
